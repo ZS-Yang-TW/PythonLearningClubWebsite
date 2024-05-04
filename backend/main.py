@@ -1,3 +1,6 @@
+'''
+新增資料庫、啟用 FastAPI、設定 CORS origins。
+'''
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from app.api.main import api_router

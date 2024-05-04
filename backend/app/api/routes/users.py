@@ -5,10 +5,6 @@ from app.models import User, UserCreate
 
 router = APIRouter()
 
-# @router.post("/")
-# def create_user():
-#     return {"message": "User created"}
-
 @router.post("/", response_model=UserCreate)
 def create_user(session: SessionDep, user_in: UserCreate):
     """

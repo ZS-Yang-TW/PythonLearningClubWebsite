@@ -1,3 +1,8 @@
+'''
+models.py
+用來定義實體的資料模型。
+'''
+
 from sqlmodel import Field, SQLModel
 
 class UserBase(SQLModel):

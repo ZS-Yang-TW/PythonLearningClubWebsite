@@ -1,3 +1,7 @@
+'''
+Router for the APIs
+'''
+
 from fastapi import APIRouter
 from app.api.routes import users
 

@@ -1,3 +1,7 @@
+'''
+crud.py 是用來定義資料庫 CRUD (Create, Read, Update, Delete) 操作的函式。
+'''
+
 from sqlmodel import Session
 from app.models import User, UserCreate
 
