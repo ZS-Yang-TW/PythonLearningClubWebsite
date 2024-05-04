@@ -6,13 +6,21 @@ models.py
 from sqlmodel import Field, SQLModel
 
 class UserBase(SQLModel):
+    username: str
     email: str = Field(unique=True, index=True)
-    is_active: bool = True
-    is_superuser: bool = False
     full_name: str | None = None
+    is_active: bool = False
 
 class UserCreate(UserBase):
     password: str
     
-class User(UserCreate, table=True):
+class User(UserBase, table=True):
     id: int = Field(default=None, primary_key=True)
+    hashed_password: str
+    
+class Token(SQLModel):
+    access_token: str
+    token_type: str
+
+class TokenData(SQLModel):
+    username: str | None = None
