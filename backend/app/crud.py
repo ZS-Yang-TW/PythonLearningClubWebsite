@@ -10,6 +10,8 @@ from app.api.deps import SessionDep
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
+from dotenv import load_dotenv
+import os
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/login/access-token")
 
@@ -17,9 +19,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/login/access-token")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # JWT settings
-SECRET_KEY = "37ef63b27b3ceb9e3056db25c2543afe0e5594c8dffe3723f13e6290f6826138"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+load_dotenv()
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 def hash_password(password: str):
     """

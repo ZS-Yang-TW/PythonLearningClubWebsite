@@ -1,5 +1,4 @@
 from fastapi import APIRouter, HTTPException, Depends
-from fastapi.security import OAuth2PasswordRequestForm
 from app import crud
 from app.api.deps import SessionDep
 from app.models import User, UserCreate
