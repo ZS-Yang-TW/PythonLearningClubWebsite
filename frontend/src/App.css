@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: rgb(46, 46, 46);
 }
 
 .App-logo {
@@ -7,25 +8,31 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
+  background-color: #222;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 48px;
+  color: #FFFFFF;
 }
 
-.App-link {
-  color: #61dafb;
+.button-custom {
+  background-color: #AAAAAA; /* 按鈕背景顏色 */
+  color: #fff; /* 按鈕文字顏色 */
+  margin-top: 24px; /* 上邊距 */
+}
+
+.button-custom:hover {
+  background-color: #0056b3; /* 滑鼠懸停時的背景顏色 */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
 @keyframes App-logo-spin {
