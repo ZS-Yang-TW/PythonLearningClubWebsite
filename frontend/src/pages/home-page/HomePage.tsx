@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import logo from '../../logo.png';
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import { PageButton } from './PageButton';
 import { SocialMediaButtons } from './SocialMediaButtons';
 
@@ -32,6 +32,23 @@ export const HomePage: FC = () => {
                 />
             </Grid>
         </Grid>
+
+        <a href={"/login/"}>
+            <Button
+                variant="contained" 
+                sx={{
+                    fontWeight: "bold",
+                    backgroundColor: "#00DB79", // 自定義背景顏色
+                    color: "#111", // 文字顏色
+                    width: '300px',
+                    '&:hover': {
+                        backgroundColor: "#FCFAB6", // 滑鼠懸停時的背景顏色
+                        }
+                }}
+            >
+                登入 
+            </Button>
+        </a>
 
         {/* SocialMedias */}
         <SocialMediaButtons />
