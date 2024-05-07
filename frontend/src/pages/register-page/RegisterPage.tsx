@@ -1,20 +1,40 @@
 import { FC, useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { UserRegisterData, createUser } from '../../apis/users.api';
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterPage: FC = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const navigate = useNavigate();
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // 防止表單提交導致頁面刷新
+    const { username, email, password, confirmPassword } = formData;
     if (password !== confirmPassword) {
       alert('密碼和確認密碼不匹配');
       return;
     }
-    console.log('Username:', username, 'Email:', email, 'Password:', password);
-    // 實際應用中這裡會有註冊邏輯
+    try {
+      const userData: UserRegisterData = { username, email, password };
+      await createUser(userData);
+      alert('註冊成功');
+      navigate('/');
+    } catch (error) {
+      console.error('註冊失敗', error);
+      alert('註冊過程中出現錯誤');
+    }
   };
 
   return (
@@ -36,12 +56,12 @@ export const RegisterPage: FC = () => {
             required
             fullWidth
             id="username"
-            label="用戶名"
+            label="帳號"
             name="username"
             autoComplete="username"
             autoFocus
-            value={username}
-            onChange={e => setUsername(e.target.value)}
+            value={formData.username}
+            onChange={handleInputChange}
           />
           <TextField
             margin="normal"
@@ -51,8 +71,8 @@ export const RegisterPage: FC = () => {
             label="電子郵件地址"
             name="email"
             autoComplete="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleInputChange}
           />
           <TextField
             margin="normal"
@@ -63,8 +83,8 @@ export const RegisterPage: FC = () => {
             type="password"
             id="password"
             autoComplete="new-password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleInputChange}
           />
           <TextField
             margin="normal"
@@ -74,8 +94,8 @@ export const RegisterPage: FC = () => {
             label="確認密碼"
             type="password"
             id="confirmPassword"
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
+            value={formData.confirmPassword}
+            onChange={handleInputChange}
           />
           <Button
             type="submit"

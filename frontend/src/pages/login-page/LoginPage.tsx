@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Box, Link, Grid, Stack } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Link, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { userLogin, UserLoginData } from '../../apis/users.api';
 
 export const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-  
-    const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault(); // 防止表單提交導致頁面刷新
-      console.log('Username:', username, 'Password:', password);
-      // 實際應用中這裡會有驗證邏輯
+
+    const navigate = useNavigate();
+
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); // 防止表单提交导致页面刷新
+        try {
+            const userData: UserLoginData = { username, password };
+            const response = await userLogin(userData);
+            console.log('Login success:', response);
+            navigate('/');
+        } catch (error: any) {
+            console.error('Login error:', error.message);
+        }
     };
-  
+
+
     return (
       <Container component="main" maxWidth="xs">
         <Box
@@ -58,22 +69,22 @@ export const LoginPage = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 1, mb: 1 }}
-            >登入
+            >登录
             </Button>
           </Box>
 
-            <Grid container justifyContent={'start'}>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  忘記密碼？
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/register/" variant="body2">
-                  {'註冊'}
-                </Link>
-              </Grid>
+          <Grid container justifyContent={'start'}>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                忘記密碼？
+              </Link>
             </Grid>
+            <Grid item>
+              <Link href="/register/" variant="body2">
+                {'註冊'}
+              </Link>
+            </Grid>
+          </Grid>
 
         </Box>
       </Container>
