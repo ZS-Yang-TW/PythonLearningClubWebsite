@@ -50,9 +50,18 @@ export const getUser = async (userId: UserId) => {
     }
 };
 
-export const loginUser = async (userData: UserLoginData) => {
+export const userLogin = async (userData: UserLoginData) => {
     try {
-        const response = await request.post('api/v1/login/access-token', userData);
+
+        // 使用 URLSearchParams 來處理表單資料
+        const formBody = new URLSearchParams(userData).toString();
+
+        // 指定 Content-Type 為 application/x-www-form-urlencoded
+        const response = await request.post('api/v1/login/access-token', formBody, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
         return response.data;
     } catch (error: any) {
         if (error.response) {
