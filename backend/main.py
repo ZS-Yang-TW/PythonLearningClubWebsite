@@ -25,6 +25,9 @@ app.add_middleware(
         "http://localhost",
         "http://localhost:3000",
     ],
+    allow_credentials=True, # 允許跨域請求攜帶 cookie
+    allow_methods=["*"], # 允許所有請求方法
+    allow_headers=["*"], # 允許所有請求標頭
 )
 
 # Include the API routes
